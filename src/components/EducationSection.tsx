@@ -4,36 +4,36 @@ import { GraduationCap } from "lucide-react";
 const education = [
   {
     institution: "University of Manchester",
-    degree: "MSc Electrical & Electronic Engineering",
-    period: "2022 – 2023",
+    degree: "MSc, Advanced Control and Systems Engineering",
+    period: "2024 – 2025",
     highlights: [
-      "Advanced Control Systems",
-      "Embedded Systems Design",
-      "Digital Signal Processing",
-      "Dissertation: Model Predictive Control for Nonlinear Systems",
+      "Control Systems Fundamentals | Process Automation | System Identification & AI",
+      "Advanced Power System Protection & Control | Digital Control | Robotic Manipulators",
+      "Applied Control & Autonomous Systems | Quantum Computing Fundamentals",
     ],
+    dissertation: "Noise-Adaptive Grover Search Algorithm on NISQ Hardware — Quantum-inspired optimization for fault-tolerant control systems. Designed quantum circuit optimization algorithms using Qiskit for NISQ processors.",
   },
   {
     institution: "WorldQuant University",
     degree: "MSc Financial Engineering (Online)",
-    period: "2023 – 2025",
+    period: "2025 – Present",
     highlights: [
-      "Quantitative Methods",
-      "Machine Learning for Finance",
-      "Risk Management",
-      "Stochastic Calculus",
+      "Financial econometrics | Stochastic modeling & Monte Carlo simulation",
+      "Derivatives pricing | Portfolio optimization | Risk management (VaR/CVaR)",
+      "Time-series forecasting and ML/DL for alpha research using Python",
     ],
+    dissertation: "Building an ML-powered quantitative framework integrating econometrics, stochastic modelling, and Monte Carlo simulation to forecast returns, price derivatives, and optimize portfolios.",
   },
   {
     institution: "Anna University",
-    degree: "BEng Electrical & Electronics Engineering",
-    period: "2016 – 2020",
+    degree: "BEng Mechanical Engineering",
+    period: "2017 – 2021",
     highlights: [
-      "Power Electronics",
-      "Control Systems",
-      "Microprocessors & Microcontrollers",
-      "Dissertation: Electric Power Generation from IC Engine Waste Heat",
+      "Electrical Machines & Power Systems | Circuit Analysis & Electronics",
+      "Mechatronics | Electrical Drives and Controls | CAD/CAM",
+      "Thermodynamics & Energy Systems | Manufacturing Technology",
     ],
+    dissertation: "Regenerative Braking System for Electric Vehicles using a squirrel cage induction motor. Designed, simulated, and fabricated an energy-efficient braking system in MATLAB/Simulink and SolidWorks.",
   },
 ];
 
@@ -64,12 +64,18 @@ const EducationSection = () => {
               <GraduationCap className="w-6 h-6 text-primary mb-3" />
               <span className="font-mono text-xs text-primary uppercase tracking-wider">{edu.period}</span>
               <h3 className="font-mono text-sm font-semibold text-foreground mt-1 mb-1">{edu.institution}</h3>
-              <p className="font-serif text-sm text-muted-foreground mb-4">{edu.degree}</p>
-              <ul className="space-y-1">
+              <p className="font-serif text-sm text-muted-foreground mb-3">{edu.degree}</p>
+              <ul className="space-y-1 mb-3">
                 {edu.highlights.map((h) => (
                   <li key={h} className="font-serif text-xs text-foreground/70">• {h}</li>
                 ))}
               </ul>
+              {edu.dissertation && (
+                <div className="pt-3 border-t border-border">
+                  <p className="font-mono text-[10px] uppercase tracking-wider text-primary mb-1">Dissertation</p>
+                  <p className="font-serif text-xs text-foreground/65 leading-relaxed">{edu.dissertation}</p>
+                </div>
+              )}
             </motion.div>
           ))}
         </div>

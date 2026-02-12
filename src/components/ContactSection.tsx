@@ -62,8 +62,8 @@ const ContactSection = () => {
             </div>
             <div className="flex items-center gap-3">
               <Linkedin className="w-5 h-5 text-primary" />
-              <a href="https://www.linkedin.com/in/ben-paul-richard" target="_blank" rel="noopener noreferrer" className="font-serif text-foreground/85 hover:text-primary transition-colors">
-                linkedin.com/in/ben-paul-richard
+              <a href="https://www.linkedin.com/in/ben-paul-richard-s-b31a451a6/" target="_blank" rel="noopener noreferrer" className="font-serif text-foreground/85 hover:text-primary transition-colors">
+                linkedin.com/in/ben-paul-richard-s
               </a>
             </div>
           </motion.div>

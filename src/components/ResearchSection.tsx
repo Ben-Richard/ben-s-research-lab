@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FileText, ExternalLink } from "lucide-react";
+import { FileText, ExternalLink, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const publications = [
@@ -7,26 +7,30 @@ const publications = [
     title: "Electric Power Generation from IC Engine Waste Heat",
     type: "Patent",
     description: "Novel thermoelectric generator system for recovering waste heat from internal combustion engines, converting thermal energy to electrical power.",
-    pdf: "/publications/patent-waste-heat.pdf",
+    pdf: "/publications/Patent_-_Electrical_Power_Generation.pdf",
   },
   {
     title: "Army Surveillance Robot",
     type: "IEEE Paper",
     description: "Design and implementation of a remotely operated surveillance robot with real-time video transmission and obstacle avoidance for military applications.",
-    pdf: "/publications/ieee-surveillance-robot.pdf",
+    pdf: "/publications/IEEE_Army_Surveillance_Robot.pdf",
   },
 ];
 
 const certifications = [
-  { name: "MATLAB Onramp", pdf: "/certifications/matlab-onramp.pdf" },
-  { name: "Simulink Onramp", pdf: "/certifications/simulink-onramp.pdf" },
-  { name: "Control Design Onramp", pdf: "/certifications/control-design.pdf" },
-  { name: "Deep Learning Onramp", pdf: "/certifications/deep-learning.pdf" },
-  { name: "Machine Learning Onramp", pdf: "/certifications/machine-learning.pdf" },
-  { name: "Signal Processing Onramp", pdf: "/certifications/signal-processing.pdf" },
-  { name: "Image Processing Onramp", pdf: "/certifications/image-processing.pdf" },
-  { name: "Stateflow Onramp", pdf: "/certifications/stateflow.pdf" },
-  { name: "Statistics Onramp", pdf: "/certifications/statistics.pdf" },
+  { name: "Advanced Ethical Hacking Bootcamp", detail: "MITM attacks, DNS spoofing, DHCP starvation, DoS/DDoS, router exploitation", provider: "Zero To Mastery", pdf: "/certifications/All_Certificates.pdf" },
+  { name: "Cybersecurity — Personal Online Security", detail: "Privacy protection, phishing prevention, password management, VPN", provider: "Zero To Mastery", pdf: "/certifications/All_Certificates.pdf" },
+  { name: "Python Developer", detail: "Production-level Python, design patterns, Git/CI-CD integration", provider: "Zero To Mastery", pdf: "/certifications/All_Certificates.pdf" },
+  { name: "C++ OOP", detail: "Advanced OOP, STL, memory management, template metaprogramming", provider: "Zero To Mastery", pdf: "/certifications/All_Certificates.pdf" },
+  { name: "Data Structures & Algorithms", detail: "Coding interview-level DS/Algorithms; Big-O analysis", provider: "Zero To Mastery", pdf: "/certifications/All_Certificates.pdf" },
+  { name: "System Design + Architecture", detail: "Microservices, load balancing, distributed systems design", provider: "Zero To Mastery", pdf: "/certifications/All_Certificates.pdf" },
+  { name: "ML & Deep Learning Bootcamp", detail: "TensorFlow, CNNs, transfer learning, production ML pipelines", provider: "Zero To Mastery", pdf: "/certifications/All_Certificates.pdf" },
+  { name: "PLC Developer Pathway", detail: "Ladder logic, SCADA integration, PLC software development", provider: "LinkedIn Learning", pdf: "/certifications/All_Certificates.pdf" },
+  { name: "Google IT Support Professional (5 Courses)", detail: "IT Security, Operating Systems, System Administration, Networking", provider: "Google", pdf: "/certifications/All_Certificates.pdf" },
+  { name: "Google Python Programming", detail: "Google Certified Python programming", provider: "Google", pdf: "/certifications/All_Certificates.pdf" },
+  { name: "Understanding Quantum Computing", detail: "2.6 CPE credits (NASBA)", provider: "Zero To Mastery", pdf: "/certifications/Quantum_Computing.pdf" },
+  { name: "AutoCAD, CATIA V5, SolidWorks, GD&T", detail: "Certified CAD/CAM design tools", provider: "CADD School", pdf: "/certifications/All_Certificates.pdf" },
+  { name: "Lean Six Sigma & Six Sigma White Belt", detail: "Process improvement, quality tools, statistical methods", provider: "C.S.S.C", pdf: "/certifications/Lean_Six_Sigma_White_Belt.pdf" },
 ];
 
 const ResearchSection = () => {
@@ -79,11 +83,12 @@ const ResearchSection = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
           className="text-center mb-8"
+          id="certifications"
         >
           <h2 className="font-mono text-2xl font-bold text-foreground mb-3">Certifications</h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
           {certifications.map((cert, i) => (
             <motion.a
               key={cert.name}
@@ -93,11 +98,17 @@ const ResearchSection = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: i * 0.05 }}
-              className="bg-card border border-border rounded-lg p-4 text-center hover:border-primary/40 hover:bg-secondary/50 transition-all cursor-pointer"
+              transition={{ duration: 0.3, delay: i * 0.04 }}
+              className="bg-card border border-border rounded-lg p-4 hover:border-primary/40 hover:bg-secondary/50 transition-all cursor-pointer group"
             >
-              <FileText className="w-6 h-6 text-primary mx-auto mb-2" />
-              <span className="font-mono text-xs text-foreground">{cert.name}</span>
+              <div className="flex items-start gap-3">
+                <Award className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-mono text-xs font-semibold text-foreground group-hover:text-primary transition-colors">{cert.name}</span>
+                  <p className="font-serif text-[11px] text-muted-foreground mt-0.5">{cert.detail}</p>
+                  <p className="font-mono text-[10px] text-primary/60 mt-1">{cert.provider}</p>
+                </div>
+              </div>
             </motion.a>
           ))}
         </div>
