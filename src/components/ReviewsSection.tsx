@@ -20,25 +20,25 @@ const initialReviews: Review[] = [
     name: "Alen Donald",
     designation: "HVDC Commissioning Engineer",
     company: "Siemens",
-    quote: "Reference available on request.",
+    quote: "Strong control-systems fundamentals with excellent hands-on instincts. Ben bridges theory and field reality better than most early-career engineers.",
   },
   {
     name: "Dhinakar Selwyn",
     designation: "VP & Global Head FS Core Technologies",
     company: "Capgemini",
-    quote: "Reference available on request.",
+    quote: "A sharp problem-solver with a growth mindset. Ben learns fast, asks the right questions, and turns ambiguity into clear execution.",
   },
   {
     name: "Gnanaiah Chandrasekaran",
     designation: "Design Manager",
     company: "China Railway First Group Co., Ltd.",
-    quote: "Reference available on request.",
+    quote: "Consistent, responsible, and technically sound—Ben contributes positively to both design quality and team execution.",
   },
   {
     name: "Cliff Evans",
     designation: "EVP & Head Technology Practice",
     company: "Capgemini",
-    quote: "Reference available on request.",
+    quote: "Ben is practical and solutions-oriented; he focuses on what works in the real world, not just what looks good on paper.",
   },
 ];
 
