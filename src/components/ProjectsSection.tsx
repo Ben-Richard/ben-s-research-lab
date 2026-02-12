@@ -4,60 +4,62 @@ import { Button } from "@/components/ui/button";
 
 const projects = [
   {
-    title: "Mini GPU Design",
-    problem: "Need for a simplified GPU architecture for educational and prototyping purposes.",
-    approach: "Designed a pipelined graphics processor with vertex/fragment shader stages on FPGA.",
-    tools: "Verilog, Quartus, ModelSim, FPGA",
-    outcome: "Functional GPU capable of rendering basic 3D primitives with real-time rasterization.",
-    pdf: "/projects/mini-gpu.pdf",
+    title: "Mini GPU — RTL-based Multi-Core Parallel Processor",
+    problem: "Build a simplified multi-core GPU capable of running parallel workloads and validate correctness at the RTL level.",
+    approach: "Implemented dispatcher + thread scheduling, ALU datapaths, and memory interfaces in SystemVerilog; verified functionality and parallel execution using simulation testbenches; analyzed cores-vs-threads trade-offs and documented microarchitecture choices.",
+    tools: "SystemVerilog/Verilog, RTL simulation, testbench design, Git, Linux tools",
+    outcome: "Verified a working RTL mini-GPU through simulation, with documented architectural decisions and practical processor/RTL verification experience.",
+    link: "https://github.com/Ben-Richard?tab=repositories",
   },
   {
-    title: "Autonomous Mobile Robot",
-    problem: "Navigation in unstructured environments without GPS.",
-    approach: "Implemented SLAM-based navigation with LiDAR and IMU sensor fusion.",
-    tools: "ROS, Python, C++, Raspberry Pi, LiDAR",
-    outcome: "Robot achieved autonomous navigation in indoor environments with 95% waypoint accuracy.",
-    pdf: "/projects/autonomous-robot.pdf",
+    title: "Autonomous Mobile Robots — Motion Control & Localization",
+    problem: "Achieve accurate trajectory tracking and robust real-time pose estimation for mobile robots with safe obstacle avoidance.",
+    approach: "Designed and simulated PID, Sliding Mode Control, and cascade control for tracking; implemented EKF, Particle Filter, and SLAM for localization; added CBF-CLF QP planning for obstacle avoidance + goal-seeking.",
+    tools: "MATLAB, Simulink, Python",
+    outcome: "End-to-end autonomy stack in simulation (control + localization + planning) and a strong foundation for real-time robotics deployment.",
+    link: "https://github.com/Ben-Richard?tab=repositories",
   },
   {
-    title: "Quanser Aero 2 Control",
-    problem: "Dual-rotor aeroservo system with coupled dynamics requiring precise attitude control.",
-    approach: "Designed LQR and PID controllers with system identification and state-space modelling.",
-    tools: "MATLAB, Simulink, Quanser Hardware",
-    outcome: "Achieved ±1° tracking accuracy with 20% stability improvement over baseline PID.",
-    pdf: "/projects/quanser-aero2.pdf",
+    title: "Quanser Aero2 — 2-DOF Helicopter Stabilization",
+    problem: "Stabilize a 2-DOF helicopter system across a wide operating envelope and validate robustness under faults.",
+    approach: "Implemented PID, LQR, LQG, MRAC, and feedback linearization; performed Hardware-in-the-Loop testing using Simulink + QUARC; evaluated robustness under fault conditions.",
+    tools: "Simulink, QUARC, C/C++",
+    outcome: "Robust stabilization demonstrated in HIL, plus certified experience in advanced control synthesis and real-time validation (Quanser platform).",
+    link: "https://github.com/Ben-Richard?tab=repositories",
   },
   {
-    title: "MPC for CSTR",
-    problem: "Nonlinear chemical reactor dynamics requiring optimal temperature regulation.",
-    approach: "Developed Model Predictive Controller with linearized plant model and constraint handling.",
-    tools: "MATLAB, Simulink, CasADi",
-    outcome: "Maintained reactor within ±0.5°C of setpoint under disturbances, outperforming PID by 35%.",
-    pdf: "/projects/mpc-cstr.pdf",
+    title: "Model Predictive Control (MPC) for SISO/MIMO Systems",
+    problem: "Control a constrained process (CSTR) with input saturation while balancing stability and control effort.",
+    approach: "Developed MPC with explicit constraint handling; ran trade-off studies (stability vs effort) and validated multi-variable prioritization behavior.",
+    tools: "MATLAB/Simulink-style modeling + simulation methods",
+    outcome: "Industrial-style MPC design experience with validated constraint-aware control behavior on a representative process.",
+    link: "https://github.com/Ben-Richard?tab=repositories",
+    pdf: "/projects/MPC_Coursework_-_Ben.pdf",
   },
   {
-    title: "System Identification",
-    problem: "Deriving accurate dynamic models of physical systems from input-output data.",
-    approach: "Applied ARX, ARMAX, and subspace identification methods with validation.",
-    tools: "MATLAB, System ID Toolbox",
-    outcome: "Achieved 92% fit accuracy on benchmark datasets with robust model selection criteria.",
-    pdf: "/projects/system-id.pdf",
+    title: "System Identification & Digital Control Design",
+    problem: "Identify accurate plant models from experimental data and design practical digital controllers.",
+    approach: "Built ARX/OE models from real-time data and validated accuracy; designed/tuned digital PID using Ziegler–Nichols, IMC, and root locus methods; emphasized model validation and data-driven tuning.",
+    tools: "System ID workflows (data acquisition/analysis), digital control design methods",
+    outcome: "Achieved 87% model accuracy and demonstrated rigorous model validation + practical controller tuning skills.",
+    link: "https://github.com/Ben-Richard?tab=repositories",
+    pdf: "/projects/System_Identification_Coursework_-_Ben.pdf",
   },
   {
-    title: "Robotic Manipulator Control",
-    problem: "Precise end-effector positioning for multi-DOF robotic arm.",
-    approach: "Implemented inverse kinematics with trajectory planning and torque control.",
-    tools: "MATLAB, Simulink, Robotics Toolbox",
-    outcome: "Sub-millimetre positioning accuracy with smooth trajectory execution.",
-    pdf: "/projects/robotic-manipulator.pdf",
+    title: "Mobile Robot Cascade Control — Leader–Follower Navigation",
+    problem: "Enable leader–follower navigation with stable low-level motion control and responsive obstacle-aware behavior.",
+    approach: "Designed hierarchical control with inner-loop motor control and outer-loop sonar feedback; simulated obstacle avoidance and dynamic setpoint adjustment.",
+    tools: "MATLAB, Python",
+    outcome: "Demonstrated hierarchical control and multi-agent coordination concepts in simulation.",
+    link: "https://github.com/Ben-Richard?tab=repositories",
   },
   {
-    title: "Quant ML Framework",
-    problem: "Building a systematic quantitative trading framework with ML signal generation.",
-    approach: "Developed feature engineering pipeline, ensemble ML models, and backtesting engine.",
-    tools: "Python, Scikit-learn, Pandas, NumPy",
-    outcome: "Framework generating alpha signals with Sharpe ratio > 1.5 on historical data.",
-    pdf: "/projects/quant-ml.pdf",
+    title: "Robotic Manipulator Control — Forward/Inverse Kinematics",
+    problem: "Model and control multi-DOF manipulators for accurate motion/pose control.",
+    approach: "Implemented forward/inverse kinematics, Jacobian-based control; added Lagrangian modeling and dynamic control techniques.",
+    tools: "Python, NumPy, MATLAB",
+    outcome: "Practical implementation experience in nonlinear robot modeling, kinematics, and dynamics-based control.",
+    link: "https://github.com/Ben-Richard?tab=repositories",
   },
 ];
 
@@ -111,11 +113,20 @@ const ProjectsSection = () => {
                 </div>
               </div>
 
-              <Button variant="outline" size="sm" asChild className="font-mono text-xs">
-                <a href={project.pdf} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="w-3 h-3 mr-1" /> View Project
-                </a>
-              </Button>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" asChild className="font-mono text-xs">
+                  <a href={project.link} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="w-3 h-3 mr-1" /> View Project
+                  </a>
+                </Button>
+                {project.pdf && (
+                  <Button variant="ghost" size="sm" asChild className="font-mono text-xs">
+                    <a href={project.pdf} target="_blank" rel="noopener noreferrer">
+                      📄 Report
+                    </a>
+                  </Button>
+                )}
+              </div>
             </motion.div>
           ))}
         </div>

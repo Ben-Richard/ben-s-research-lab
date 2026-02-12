@@ -17,28 +17,28 @@ interface Review {
 
 const initialReviews: Review[] = [
   {
-    name: "Dr. Sarah Mitchell",
-    designation: "Senior Lecturer",
-    company: "University of Manchester",
-    quote: "Ben demonstrated exceptional analytical skills and a remarkable ability to bridge theoretical concepts with practical engineering solutions.",
+    name: "Alen Donald",
+    designation: "HVDC Commissioning Engineer",
+    company: "Siemens",
+    quote: "Reference available on request.",
   },
   {
-    name: "Rajesh Kumar",
-    designation: "Engineering Manager",
-    company: "Zebronics India",
-    quote: "One of the most dedicated interns we've had. Ben's PCB designs were meticulous and his attention to quality was outstanding.",
+    name: "Dhinakar Selwyn",
+    designation: "VP & Global Head FS Core Technologies",
+    company: "Capgemini",
+    quote: "Reference available on request.",
   },
   {
-    name: "Prof. James Chen",
-    designation: "Research Supervisor",
-    company: "University of Manchester",
-    quote: "Ben's work on model predictive control showed a deep understanding of advanced control theory. His dissertation was among the top in the cohort.",
+    name: "Gnanaiah Chandrasekaran",
+    designation: "Design Manager",
+    company: "China Railway First Group Co., Ltd.",
+    quote: "Reference available on request.",
   },
   {
-    name: "Ananya Sharma",
-    designation: "Team Lead",
-    company: "SKI Precision Products",
-    quote: "Ben brought fresh perspectives to our quality engineering processes. His data-driven approach to SPC implementation was truly impressive.",
+    name: "Cliff Evans",
+    designation: "EVP & Head Technology Practice",
+    company: "Capgemini",
+    quote: "Reference available on request.",
   },
 ];
 
@@ -51,7 +51,6 @@ const ReviewsSection = () => {
   const { toast } = useToast();
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll animation
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
@@ -84,10 +83,22 @@ const ReviewsSection = () => {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    // For now, just show success — backend will handle storage later
+    const name = data.get("name") as string;
+    const email = data.get("email") as string;
+    const designation = data.get("designation") as string;
+    const company = data.get("company") as string;
+    const comment = data.get("comment") as string;
+
+    // Send approval request via mailto
+    const subject = encodeURIComponent(`New Review Submission from ${name}`);
+    const body = encodeURIComponent(
+      `New review submission for approval:\n\nName: ${name}\nEmail: ${email}\nDesignation: ${designation}\nCompany: ${company}\n\nReview:\n${comment}\n\nReply YES to approve this review.`
+    );
+    window.open(`mailto:benpaulrichard3@gmail.com?subject=${subject}&body=${body}`, "_blank");
+
     toast({
       title: "Review submitted!",
-      description: "Your review will appear after approval. Thank you!",
+      description: "Your review has been sent for approval. Thank you!",
     });
     setDialogOpen(false);
     form.reset();
@@ -107,7 +118,6 @@ const ReviewsSection = () => {
           <p className="text-muted-foreground font-serif">What colleagues and mentors have to say.</p>
         </motion.div>
 
-        {/* Scrolling cards */}
         <div ref={scrollRef} className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide mb-8" style={{ scrollbarWidth: "none" }}>
           {reviews.map((review, i) => (
             <div
@@ -128,7 +138,8 @@ const ReviewsSection = () => {
           ))}
         </div>
 
-        {/* Write a Review */}
+        <p className="text-center font-serif text-sm text-muted-foreground mb-6">More available on request</p>
+
         <div className="text-center">
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>

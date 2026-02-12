@@ -29,7 +29,7 @@ const AboutSection = () => {
             <h2 className="font-mono text-3xl font-bold mb-6 text-gradient">About Me</h2>
             <p className="font-serif text-foreground/85 leading-relaxed mb-4">
               I'm a multidisciplinary engineer with an MSc in Electrical & Electronic Engineering from the University of Manchester 
-              and an MSc in Financial Engineering from WorldQuant University. My work spans embedded systems, control theory, 
+              and an MSc in Financial Engineering from WorldQuant University (ongoing Online). My work spans embedded systems, control theory, 
               robotics, and quantitative modelling.
             </p>
             <p className="font-serif text-foreground/85 leading-relaxed mb-6">
