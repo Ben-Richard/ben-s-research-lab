@@ -1,39 +1,50 @@
-import { useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useMotionValueEvent,
+  useTransform,
+} from "framer-motion";
 import { Mail, Github, Linkedin, Download, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current || !videoRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const sectionHeight = sectionRef.current.offsetHeight - window.innerHeight;
-      const progress = Math.min(Math.max(-rect.top / sectionHeight, 0), 1);
-      setScrollProgress(progress);
+  // Declarative scroll tracking — no useState, no window listeners
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
 
-      if (videoRef.current.duration) {
-        videoRef.current.currentTime = progress * videoRef.current.duration;
-      }
-    };
+  // Smoothed spring value
+  const springScroll = useSpring(scrollYProgress, {
+    damping: 50,
+    stiffness: 400,
+  });
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // Video scrubbing — writes directly to DOM, no re-renders
+  useMotionValueEvent(springScroll, "change", (latest) => {
+    const video = videoRef.current;
+    if (video && video.readyState > 0 && video.duration) {
+      video.currentTime = latest * video.duration;
+    }
+  });
 
-  const nameOpacity = scrollProgress < 0.05 ? 1 : scrollProgress < 0.2 ? 1 : Math.max(0, 1 - (scrollProgress - 0.2) * 5);
-  const subOpacity = scrollProgress < 0.15 ? 0 : scrollProgress < 0.25 ? (scrollProgress - 0.15) * 10 : scrollProgress < 0.45 ? 1 : Math.max(0, 1 - (scrollProgress - 0.45) * 5);
-  const secOpacity = scrollProgress < 0.3 ? 0 : scrollProgress < 0.4 ? (scrollProgress - 0.3) * 10 : scrollProgress < 0.6 ? 1 : Math.max(0, 1 - (scrollProgress - 0.6) * 5);
-  const introOpacity = scrollProgress < 0.5 ? 0 : scrollProgress < 0.6 ? (scrollProgress - 0.5) * 10 : 1;
-  const ctaOpacity = scrollProgress < 0.65 ? 0 : scrollProgress < 0.75 ? (scrollProgress - 0.65) * 10 : 1;
+  // Per-element opacity as MotionValues — zero re-renders
+  const nameOpacity  = useTransform(springScroll, [0, 0.05, 0.2, 0.35],   [1, 1, 1, 0]);
+  const subOpacity   = useTransform(springScroll, [0.15, 0.25, 0.45, 0.6], [0, 1, 1, 0]);
+  const secOpacity   = useTransform(springScroll, [0.3,  0.4,  0.6, 0.75], [0, 1, 1, 0]);
+  const introOpacity = useTransform(springScroll, [0.5,  0.6,  1],         [0, 1, 1]);
+  const ctaOpacity   = useTransform(springScroll, [0.65, 0.75, 1],         [0, 1, 1]);
+  const arrowOpacity = useTransform(springScroll, [0, 0.1],                [1, 0]);
 
   return (
     <section ref={sectionRef} className="relative h-[400vh]" id="hero">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-end justify-center">
+
         {/* Video background */}
         <video
           ref={videoRef}
@@ -47,8 +58,12 @@ const HeroSection = () => {
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-background/60" />
 
-        {/* Content */}
-        <div className="relative z-10 text-center pb-16 md:pb-24 px-4 max-w-4xl">
+        {/* Bottom gradient for text legibility */}
+        <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-background/80 to-transparent pointer-events-none" />
+
+        {/* Content — anchored bottom-center */}
+        <div className="relative z-10 w-full text-center px-4 pb-20 md:pb-28 max-w-4xl mx-auto">
+
           <motion.h1
             className="font-mono text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-3"
             style={{ opacity: nameOpacity }}
@@ -56,29 +71,29 @@ const HeroSection = () => {
             <span className="text-gradient">Ben Paul Richard</span>
           </motion.h1>
 
-          <p
+          <motion.p
             className="font-mono text-base md:text-lg text-muted-foreground mb-2 tracking-wide"
             style={{ opacity: subOpacity }}
           >
             Engineer · Researcher · Builder
-          </p>
+          </motion.p>
 
-          <p
+          <motion.p
             className="font-serif text-sm md:text-base text-muted-foreground/80 mb-4 max-w-xl mx-auto"
             style={{ opacity: secOpacity }}
           >
             Embedded Systems · Control Engineering · Quantitative Research
-          </p>
+          </motion.p>
 
-          <p
+          <motion.p
             className="font-serif text-sm md:text-base text-foreground/70 mb-8 max-w-lg mx-auto leading-relaxed"
             style={{ opacity: introOpacity }}
           >
-            MSc graduate blending hardware-level engineering with advanced control theory and data-driven modelling. 
+            MSc graduate blending hardware-level engineering with advanced control theory and data-driven modelling.
             Passionate about building systems that bridge the physical and computational worlds.
-          </p>
+          </motion.p>
 
-          <div style={{ opacity: ctaOpacity }} className="space-y-4">
+          <motion.div style={{ opacity: ctaOpacity }} className="space-y-4">
             <div className="flex flex-wrap items-center justify-center gap-3">
               <Button
                 asChild
@@ -115,19 +130,17 @@ const HeroSection = () => {
                 <Github className="w-5 h-5" />
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
 
-        {/* Scroll indicator */}
-        {scrollProgress < 0.1 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted-foreground"
-          >
-            <ArrowDown className="w-5 h-5 animate-bounce" />
-          </motion.div>
-        )}
+        {/* Scroll indicator — fades via MotionValue, no conditional render */}
+        <motion.div
+          style={{ opacity: arrowOpacity }}
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted-foreground"
+        >
+          <ArrowDown className="w-5 h-5 animate-bounce" />
+        </motion.div>
+
       </div>
     </section>
   );
